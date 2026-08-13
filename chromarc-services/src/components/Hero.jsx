@@ -1,72 +1,122 @@
-import { motion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+
+import heroBg from "../assets/HeroBG.jpg";
 
 const Hero = () => {
+  const { scrollY } = useScroll();
+
+  const opacity = useTransform(
+    scrollY,
+    [0, 500],
+    [1, 0]
+  );
+
+  const scale = useTransform(
+    scrollY,
+    [0, 500],
+    [1, 1.15]
+  );
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-28">
 
-      {/* Background Glow */}
-      <div className="absolute inset-0">
+      {/* Background Image */}
+      <motion.div
+        style={{
+          opacity,
+          scale,
+        }}
+        className="absolute inset-0"
+      >
+        <img
+          src={heroBg}
+          alt=""
+          className="w-full h-full object-cover"
+        />
 
-        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/20 blur-[180px] rounded-full" />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/80" />
 
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/20 blur-[180px] rounded-full" />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#0B0B0B]" />
+      </motion.div>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 blur-[200px] rounded-full" />
+      {/* Floating Glows */}
+      <div className="absolute top-20 left-10 w-96 h-96 bg-pink-500/20 blur-[150px] rounded-full" />
 
-      </div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 blur-[150px] rounded-full" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+      <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-purple-500/10 blur-[180px] rounded-full -translate-x-1/2 -translate-y-1/2" />
 
-        {/* Heading */}
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center flex flex-col justify-center min-h-[85vh]">
+        <div> 
+
+        </div>
+
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
           className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight"
         >
-          Build.
-          <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"> Scale. </span>
-          Dominate.
+          Turn Clicks Into
+          <span className="bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            {" "}
+            Customers
+          </span>
         </motion.h1>
 
-        {/* Subheading */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: 0.2,
+          }}
           className="mt-8 max-w-3xl mx-auto text-gray-300 text-lg md:text-xl"
         >
-          We help businesses generate more leads, increase
-          visibility, and convert traffic into revenue through
-          SEO, Social Media Marketing, Paid Ads, Branding,
-          and High-Converting Websites.
+          SEO, Social Media Marketing,
+          Paid Advertising, Video Design,
+          Branding and High-Converting
+          Websites built to accelerate
+          business growth.
         </motion.p>
 
-        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            delay: 0.4,
+          }}
           className="mt-10 flex justify-center gap-4 flex-wrap"
         >
-          <button className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold hover:scale-105 transition">
+          <button className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all">
             Book Free Strategy Call
           </button>
 
-          <button className="border border-white/20 px-8 py-4 rounded-xl hover:bg-white/5 transition">
+          <button className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-xl hover:bg-white/5 transition">
             View Portfolio
           </button>
         </motion.div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
           <div>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold text-cyan-400">
               50+
             </h2>
             <p className="text-gray-400 mt-2">
@@ -75,7 +125,7 @@ const Hero = () => {
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold text-pink-400">
               20+
             </h2>
             <p className="text-gray-400 mt-2">
@@ -84,7 +134,7 @@ const Hero = () => {
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold text-purple-400">
               95%
             </h2>
             <p className="text-gray-400 mt-2">
@@ -93,17 +143,16 @@ const Hero = () => {
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold text-cyan-400">
               24/7
             </h2>
             <p className="text-gray-400 mt-2">
               Support
             </p>
           </div>
-        </motion.div>
-
+        </div>
       </div>
-
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-[#0B0B0B]" />
     </section>
   );
 };
