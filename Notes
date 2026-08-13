@@ -1,0 +1,21 @@
+src
+│
+├── assets
+│
+├── components
+│     Navbar.jsx
+│     Hero.jsx
+│     Services.jsx
+│     WhyChooseUs.jsx
+│     Portfolio.jsx
+│     About.jsx
+│     Contact.jsx
+│     Footer.jsx
+│
+├── styles
+│
+├── App.jsx
+│
+├── main.jsx
+│
+└── index.css
