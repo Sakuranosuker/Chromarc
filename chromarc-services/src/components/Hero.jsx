@@ -2,6 +2,8 @@ import {
   motion,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
 } from "framer-motion";
 
 import heroBg from "../assets/HeroBG.jpg";
@@ -21,21 +23,65 @@ const Hero = () => {
     [1, 1.15]
   );
 
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-28">
+  // Mouse Parallax
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
 
+  const smoothRotateX = useSpring(rotateX, {
+    stiffness: 120,
+    damping: 20,
+  });
+
+  const smoothRotateY = useSpring(rotateY, {
+    stiffness: 120,
+    damping: 20,
+  });
+
+  const handleMouseMove = (e) => {
+    const { innerWidth, innerHeight } = window;
+
+    const x = e.clientX - innerWidth / 2;
+    const y = e.clientY - innerHeight / 2;
+
+    rotateY.set(x / 120);
+    rotateX.set(-y / 120);
+  };
+
+  const resetMouse = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+
+  return (
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-28"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetMouse}
+    >
       {/* Background Image */}
       <motion.div
         style={{
           opacity,
           scale,
+          rotateX: smoothRotateX,
+          rotateY: smoothRotateY,
+          transformPerspective: 1200,
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 will-change-transform"
       >
-        <img
+        <motion.img
           src={heroBg}
-          alt=""
-          className="w-full h-full object-cover"
+          alt="Hero Background"
+          animate={{
+            y: [0, -10, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="w-[105%] h-[105%] object-cover"
         />
 
         {/* Dark Overlay */}
@@ -45,21 +91,52 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#0B0B0B]" />
       </motion.div>
 
-      {/* Floating Glows */}
-      <div className="absolute top-20 left-10 w-96 h-96 bg-pink-500/20 blur-[150px] rounded-full" />
+      {/* Floating Background Glows */}
+      <motion.div
+        animate={{
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-20 left-10 w-96 h-96 bg-pink-500/20 blur-[150px] rounded-full"
+      />
 
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 blur-[150px] rounded-full" />
+      <motion.div
+        animate={{
+          x: [0, -30, 0],
+          y: [0, 20, 0],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 blur-[150px] rounded-full"
+      />
 
-      <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-purple-500/10 blur-[180px] rounded-full -translate-x-1/2 -translate-y-1/2" />
+      <motion.div
+        animate={{
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-purple-500/10 blur-[180px] rounded-full -translate-x-1/2 -translate-y-1/2"
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center flex flex-col justify-center min-h-[85vh]">
-        <div> 
-
-        </div>
-
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{
+            opacity: 0,
+            y: 40,
+          }}
           animate={{
             opacity: 1,
             y: 0,
@@ -77,7 +154,10 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
           animate={{
             opacity: 1,
             y: 0,
@@ -95,7 +175,9 @@ const Hero = () => {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{
+            opacity: 0,
+          }}
           animate={{
             opacity: 1,
           }}
@@ -104,7 +186,7 @@ const Hero = () => {
           }}
           className="mt-10 flex justify-center gap-4 flex-wrap"
         >
-          <button className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all">
+          <button className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/20">
             Book Free Strategy Call
           </button>
 
@@ -152,6 +234,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Bottom Fade */}
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-[#0B0B0B]" />
     </section>
   );
