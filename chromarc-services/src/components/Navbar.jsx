@@ -1,4 +1,4 @@
-import logo from "../assets/Chromarc logo.jpeg";
+import logo from "../assets/Chromarc logo.png";
 
 const Navbar = () => {
   const goHome = () => {

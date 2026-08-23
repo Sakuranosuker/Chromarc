@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import clinic from "../assets/projects/clinic.png"
-import asCollection from "../assets/projects/asCollection.png"
+import asCollection from "../assets/projects/asCollection2.jpeg"
 import explorFoodie from "../assets/projects/explorFoodie.png"
 import bangaliana from "../assets/projects/bangaliana.png"
 const projects = [
@@ -130,9 +130,7 @@ const Portfolio = () => {
 
                 </div>
 
-                <button className="mt-8 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-6 py-3 rounded-xl font-semibold">
-                  View Project
-                </button>
+
 
               </div>
 
