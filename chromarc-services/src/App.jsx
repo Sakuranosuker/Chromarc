@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import Portfolio from "./components/Portfolio";
 
 function App() {
   useEffect(() => {
@@ -14,6 +15,7 @@ function App() {
       <Navbar />
       <Hero />
       <Services />
+      <Portfolio />
     </>
   );
 }

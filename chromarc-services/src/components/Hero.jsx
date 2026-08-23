@@ -184,14 +184,17 @@ const Hero = () => {
           transition={{
             delay: 0.4,
           }}
-          className="mt-10 flex justify-center gap-4 flex-wrap"
-        >
+          className="mt-10 flex justify-center gap-4 flex-wrap">
           <button className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/20">
             Book Free Strategy Call
           </button>
 
-          <button className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-xl hover:bg-white/5 transition">
-            View Portfolio
+          <button
+          onClick={() =>
+          document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })
+          }
+          className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-xl hover:bg-white/5 transition">
+          View Portfolio
           </button>
         </motion.div>
 
