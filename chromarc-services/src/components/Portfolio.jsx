@@ -3,6 +3,8 @@ import clinic from "../assets/projects/clinic.png"
 import asCollection from "../assets/projects/asCollection2.jpeg"
 import explorFoodie from "../assets/projects/explorFoodie.png"
 import bangaliana from "../assets/projects/bangaliana.png"
+import ramshas from "../assets/projects/RamshaBakery2.png"
+
 const projects = [
   {
     title: "Dr. SM Rahaman Clinic",
@@ -28,6 +30,12 @@ const projects = [
     result: "4956+ Followers",
     image: bangaliana,
   },
+  {
+    title: "Ramsha's Bakery",
+    category: "Social Media + Content",
+    result: "Visibility + Engagement Boost",
+    image: ramshas
+  }
 ];
 
 const Portfolio = () => {
