@@ -6,6 +6,7 @@ import Portfolio from "./components/Portfolio";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CTA from "./components/CTA";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Portfolio />
       <About />
       <Contact />
+      <CTA />
       <Footer />
 
     </>
