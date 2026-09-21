@@ -11,17 +11,9 @@ import heroBg from "../assets/HeroBG.jpg";
 const Hero = () => {
   const { scrollY } = useScroll();
 
-  const opacity = useTransform(
-    scrollY,
-    [0, 500],
-    [1, 0]
-  );
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-  const scale = useTransform(
-    scrollY,
-    [0, 500],
-    [1, 1.15]
-  );
+  const scale = useTransform(scrollY, [0, 500], [1, 1.15]);
 
   // Mouse Parallax
   const rotateX = useMotionValue(0);
@@ -167,11 +159,8 @@ const Hero = () => {
           }}
           className="mt-8 max-w-3xl mx-auto text-gray-300 text-lg md:text-xl"
         >
-          SEO, Social Media Marketing,
-          Paid Advertising, Video Design,
-          Branding and High-Converting
-          Websites built to accelerate
-          business growth.
+          SEO, Social Media Marketing, Paid Advertising, Video Design, Branding
+          and High-Converting Websites built to accelerate business growth.
         </motion.p>
 
         <motion.div
@@ -184,56 +173,51 @@ const Hero = () => {
           transition={{
             delay: 0.4,
           }}
-          className="mt-10 flex justify-center gap-4 flex-wrap">
-          <button className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/20">
+          className="mt-10 flex justify-center gap-4 flex-wrap"
+        >
+          <button
+            onClick={() =>
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 px-8 py-4 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg shadow-purple-500/20"
+          >
             Book Free Strategy Call
           </button>
 
           <button
-          onClick={() =>
-          document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-xl hover:bg-white/5 transition">
-          View Portfolio
+            onClick={() =>
+              document
+                .getElementById("work")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="border border-white/20 backdrop-blur-md px-8 py-4 rounded-xl hover:bg-white/5 transition"
+          >
+            View Portfolio
           </button>
         </motion.div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
           <div>
-            <h2 className="text-4xl font-bold text-cyan-400">
-              50+
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Projects
-            </p>
+            <h2 className="text-4xl font-bold text-cyan-400">50+</h2>
+            <p className="text-gray-400 mt-2">Projects</p>
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold text-pink-400">
-              20+
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Clients
-            </p>
+            <h2 className="text-4xl font-bold text-pink-400">20+</h2>
+            <p className="text-gray-400 mt-2">Clients</p>
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold text-purple-400">
-              95%
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Retention
-            </p>
+            <h2 className="text-4xl font-bold text-purple-400">95%</h2>
+            <p className="text-gray-400 mt-2">Retention</p>
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold text-cyan-400">
-              24/7
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Support
-            </p>
+            <h2 className="text-4xl font-bold text-cyan-400">24/7</h2>
+            <p className="text-gray-400 mt-2">Support</p>
           </div>
         </div>
       </div>
