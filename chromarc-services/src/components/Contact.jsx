@@ -1,12 +1,59 @@
 import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    business: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          business: formData.business,
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      alert("Message sent successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        business: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <section
       id="contact"
@@ -14,7 +61,6 @@ const Contact = () => {
     >
       {/* Background Glow */}
       <div className="absolute top-20 left-20 w-80 h-80 bg-cyan-500/10 blur-[140px] rounded-full" />
-
       <div className="absolute bottom-20 right-20 w-80 h-80 bg-pink-500/10 blur-[140px] rounded-full" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -22,10 +68,7 @@ const Contact = () => {
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
         >
@@ -43,16 +86,12 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        {/* Grid */}
         <div className="grid lg:grid-cols-2 gap-12 mt-20">
 
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="
               border border-white/10
@@ -62,34 +101,52 @@ const Contact = () => {
               p-8
             "
           >
-            <form className="space-y-6">
-
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Your Name"
+                required
                 className="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400"
               />
 
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email Address"
+                required
                 className="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400"
               />
 
               <input
                 type="text"
+                name="business"
+                value={formData.business}
+                onChange={handleChange}
                 placeholder="Business Name"
                 className="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400"
               />
 
               <textarea
                 rows="5"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Tell us about your project..."
+                required
                 className="w-full bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400"
               />
 
               <button
                 type="submit"
+                disabled={loading}
                 className="
                   w-full
                   flex
@@ -105,22 +162,22 @@ const Contact = () => {
                   font-semibold
                   hover:scale-[1.02]
                   transition-all
+                  disabled:opacity-50
                 "
               >
                 <Send size={18} />
-                Send Message
-              </button>
 
+                {loading
+                  ? "Sending..."
+                  : "Send Message"}
+              </button>
             </form>
           </motion.div>
 
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="flex flex-col justify-center"
           >
@@ -173,10 +230,8 @@ const Contact = () => {
                   </p>
                 </div>
               </div>
-
             </div>
 
-            {/* CTA Card */}
             <div
               className="
                 mt-12
@@ -197,11 +252,9 @@ const Contact = () => {
                 growth opportunities for your business.
               </p>
             </div>
-
           </motion.div>
 
         </div>
-
       </div>
     </section>
   );
